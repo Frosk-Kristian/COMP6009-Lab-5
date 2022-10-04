@@ -18,10 +18,10 @@ class CollectCoinThread(threading.Thread):
         self.screen = screen
 
     def run(self):
-        ga_instance = pygad.GA(num_generations=100,
-                               num_parents_mating=1,
+        ga_instance = pygad.GA(num_generations=10000,
+                               num_parents_mating=300,
                                fitness_func=fitness_func,
-                               sol_per_pop=50,
+                               sol_per_pop=1000,
                                num_genes=2,
                                init_range_low=0.0,
                                init_range_high=1.0,
@@ -55,7 +55,7 @@ def fitness_func(solution, solution_idx):# added by Kit 21 Sep 2022
     output=1000 # output indicate the distance between a chromosome to the closest coin
     tem=1
 
-    for k in (range(len(coins.items())-2)):
+    for k in (range(len(coins.items()))):
         try:
             curr_coin = coins[list(coins.keys())[k]]
             curr_coin_center = [curr_coin.pos_hint['x'], curr_coin.pos_hint['y']]
@@ -64,7 +64,7 @@ def fitness_func(solution, solution_idx):# added by Kit 21 Sep 2022
             # solution is the position of a chromosome in the GA
             if (tem<output):
                 output=tem
-
+            
         except IndexError:
             pass
         continue
@@ -90,7 +90,7 @@ def fitness_func(solution, solution_idx):# added by Kit 21 Sep 2022
             #output -= 0
         else:
             #output += 100
-            output += 0
+            output += 100
 
     fires_pos = []
     # "fires_pos" indicates the positions of all fires
@@ -108,7 +108,7 @@ def fitness_func(solution, solution_idx):# added by Kit 21 Sep 2022
             #output -= 0
         else:
             #output += 100
-            output += 0
+            output += 100
 
     fitness = output
 #    print("the after solution", solution[0], solution[1], output)
